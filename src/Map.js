@@ -2,13 +2,20 @@ import React from 'react'
 import { ResponsiveChoropleth } from '@nivo/geo'
 import geoJSONData from './world_countries.json'
 
-export const MyResponsiveChoropleth = ({ data }) => {
+export const MyResponsiveChoropleth = ({ data, setCountry }) => {
     const CustomTooltip = ({ node }) => (
         <div className="dark:bg-gray-800 p-2 border rounded shadow">
             <div>Country: {node.label}</div>
             <div>Value: {node.formattedValue}</div>
         </div>
     );
+
+
+    const handleClick = (node, event) => {
+        console.log(node)
+        console.log(event)
+        setCountry(node.label)
+    }
 
     return (
         <ResponsiveChoropleth
@@ -29,6 +36,7 @@ export const MyResponsiveChoropleth = ({ data }) => {
                 <CustomTooltip node={{ label: feature.properties.name, formattedValue: feature.value }} />
             )}
             borderColor="black"
+            onClick={handleClick}
         />
     );
 };
