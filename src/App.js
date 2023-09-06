@@ -1,11 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { MyResponsiveChoropleth } from './Map'
 
 import data from './data.json';
 
 function App() {
-
+const API_KEY = '65947b5ecafad715b8130331f59b02dd';
 const [country, setCountry] = useState('none');
+useEffect(() => {
+  const fetchWeather = async () => {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${country}&appid=${API_KEY}`);
+    const data = await response.json();
+    console.log(data);
+  }
+  fetchWeather();
+}, [country])
 
 
   return (
